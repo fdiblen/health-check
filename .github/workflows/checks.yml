@@ -1,0 +1,34 @@
+name: superaction
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  run_custom_steps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run Custom Actions with super-action
+        id: super_run
+        uses: resoft-labs/super-action@main
+        with:
+          action_list: |
+            - name: Simple Echo
+              run: echo "Running a custom echo command."
+            - uses: actions/setup-python@v6
+              with:
+                python-version: '3.13'
+            - name: Show Python Version
+              run: python --version
+          results_output_file: outputs/custom_actions_results.json
+          display_results: "true"
+
+      - name: Upload Custom Actions Results Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: custom-actions-results
+          path: outputs/custom_actions_results.json
+          if-no-files-found: warn
+        
