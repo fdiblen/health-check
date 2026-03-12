@@ -25,10 +25,23 @@ jobs:
           results_output_file: outputs/custom_actions_results.json
           display_results: "true"
 
+      - name: Commit the new results file
+        run: |
+          now=$(date +"%m_%d_%Y")
+          results_file=$("super-action_results_${now}.json")
+          cp outputs/custom_actions_results.json $results_file
+          
+          # configure user
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git add $results_file
+          git commit -m 'add a new the super-action result'
+          git push
+
       - name: Upload Custom Actions Results Artifact
         uses: actions/upload-artifact@v4
         with:
           name: custom-actions-results
-          path: outputs/custom_actions_results.json
+          path: $results_file
           if-no-files-found: warn
-        
+
