@@ -28,7 +28,7 @@ jobs:
       - name: Commit the new results file
         run: |
           now=$(date +"%m_%d_%Y")
-          results_file=$("super-action_results_${now}.json")
+          results_file="super-action_results_${now}.json"
           cp outputs/custom_actions_results.json $results_file
           
           # configure user
