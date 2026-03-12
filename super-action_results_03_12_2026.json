@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Simple Echo",
+    "uses": null,
+    "run": "echo \"Running a custom echo command.\"",
+    "outcome": "success",
+    "outputs": {}
+  },
+  {
+    "name": "Run actions/setup-python@v6",
+    "uses": "actions/setup-python@v6",
+    "run": null,
+    "outcome": "success",
+    "outputs": {
+      "python-path": "/github/home/.cache/act/tool_cache/Python/3.13.12/x64/bin/python",
+      "python-version": "3.13.12"
+    }
+  },
+  {
+    "name": "Show Python Version",
+    "uses": null,
+    "run": "python --version",
+    "outcome": "success",
+    "outputs": {}
+  }
+]
